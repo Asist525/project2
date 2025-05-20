@@ -1,0 +1,5 @@
+[
+    {"model": "database.stock", "pk": 1, "fields": {"symbol": "AAPL", "name": "Apple Inc.", "market": "NASDAQ"}},
+    {"model": "database.stock", "pk": 2, "fields": {"symbol": "TSLA", "name": "Tesla Inc.", "market": "NASDAQ"}},
+    {"model": "database.stock", "pk": 3, "fields": {"symbol": "005930", "name": "Samsung Electronics", "market": "KOSPI"}}
+]

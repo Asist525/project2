@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reward Charts – Long‑term Model</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body{font-family:Arial,Helvetica,sans-serif;background:#f4f4f4;margin:0;padding:20px}
+        h1{text-align:center;color:#333}
+        .chart-container{width:100%;max-width:1200px;margin:20px auto;background:#fff;padding:20px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+        .chart-container canvas{width:100%;height:400px}
+        .chart-select{text-align:center;margin-bottom:20px}
+        .chart-select label{font-weight:700;margin-right:10px}
+        .chart-select select{padding:5px 10px;font-size:14px;border-radius:5px;border:1px solid #ccc;cursor:pointer}
+    </style>
+</head>
+<body>
+<h1>Reward Charts – Long‑term Model</h1>
+<div class="chart-select">
+    <label for="interval">Interval (minutes):</label>
+    <select id="interval" onchange="loadChartData()">
+        <option value="1">1분</option><option value="5">5분</option><option value="10" selected>10분</option><option value="30">30분</option><option value="60">1시간</option><option value="1440">1일</option>
+    </select>
+</div>
+
+<div class="chart-container"><canvas id="chart1"></canvas></div>
+<div class="chart-container"><canvas id="chart2"></canvas></div>
+<div class="chart-container"><canvas id="chart3"></canvas></div>
+
+<script>
+const charts={};
+async function loadChartData(){
+    const int=document.getElementById('interval').value;
+    const res=await fetch(`/ai/reward_chart_data2/?interval=${int}&rnd=${Math.random()}`);
+    const data=await res.json();
+    const metrics=[
+        {id:'chart1',keyIdx:0,label:'MCC',color:'rgba(255,99,132,0.8)'},
+        {id:'chart2',keyIdx:1,label:'SMAPE',color:'rgba(54,162,235,0.8)'},
+        {id:'chart3',keyIdx:2,label:'REWARD',color:'rgba(153,102,255,0.8)'}
+    ];
+    metrics.forEach(m=>{
+        const ctx=document.getElementById(m.id).getContext('2d');
+        if(charts[m.id]) charts[m.id].destroy();
+        charts[m.id]=new Chart(ctx,{type:'line',data:{labels:data.labels,datasets:[{label:m.label,data:data.datasets[m.keyIdx].data,borderColor:m.color,backgroundColor:m.color,borderWidth:2,fill:false,pointRadius:2}]},options:{responsive:true,maintainAspectRatio:false,scales:{x:{title:{display:true,text:'Date'}},y:{title:{display:true,text:m.label+' Value'}}}}});
+    });
+}
+loadChartData();
+</script>
+</body>
+</html>

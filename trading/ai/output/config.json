@@ -1,0 +1,20 @@
+{
+  "ticker": "QQQ",
+  "lookback": 2016,
+  "end_date": null,
+  "technical_indicators": true,
+  "ts_len": 120,
+  "horizon": 30,
+  "n_splits": 5,
+  "epochs": 150,
+  "batch_size": 32,
+  "patience": 10,
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "clip_norm": 0.5,
+  "mc_samples": 1000,
+  "mc_threshold": 2.0,
+  "mc_decay": 0.9,
+  "out_dir": "output",
+  "use_standard_scaler": true
+}

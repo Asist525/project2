@@ -1,0 +1,18 @@
+<h2>📈 백테스트 실행</h2>
+<button id="runBtn">백테스트 시작</button>
+<pre id="result"></pre>
+
+<script>
+document.getElementById("runBtn").addEventListener("click", () => {
+  fetch("/run-backtest/", {
+    method: "POST"
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("result").innerText = JSON.stringify(data, null, 2);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+});
+</script>

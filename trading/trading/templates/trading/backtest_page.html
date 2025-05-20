@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>백테스트 페이지</title>
+  {% load static %}
+  <script src="{% static 'backtest/backtest.js' %}" defer></script>
+</head>
+<body>
+  <h1>백테스트 실행</h1>
+  
+  <form id="backtest-form">
+    <label>종목 코드: <input type="text" id="ticker" value="TSLA"></label><br>
+    <label>시작일: <input type="date" id="start-date" value="2022-01-01"></label><br>
+    <label>종료일: <input type="date" id="end-date" value="2023-01-01"></label><br>
+    <button type="submit">실행</button>
+  </form>
+
+  <pre id="result"></pre>
+</body>
+</html>
