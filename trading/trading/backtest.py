@@ -22,16 +22,14 @@ pd.options.display.float_format = '{:.2f}'.format
 
 # ────────────────────────── Global settings ────────────────────────── #
 TICKER_LIST = [
-    "TSLA",  # 전기차, 에너지
     "NVDA",  # 반도체, AI
     "SMCI",  # 서버, 데이터센터
     "PLTR",  # 데이터 분석, AI
     "AMD",   # 반도체, 컴퓨팅
     "COIN",  # 암호화폐 거래소
-    "MSTR",  # 비트코인 보유
     "SNOW",  # 클라우드 데이터 웨어하우스
-    "CRWD",  # 사이버 보안
-    "SHOP"   # 전자상거래 플랫폼
+    "SHOP",   # 전자상거래 플랫폼
+    "TSLA"
 ]
 # korea = EWY | U.S = QQQ | Russia = IWM | TSLA  | SMCI | PLTR | NVDA | IONQ | SONU
 # > 600 => NVDA | TSLA
@@ -285,7 +283,7 @@ def run_backtest(start_price=100000, TICKER_LIST=TICKER_LIST):
     pivot_df_reset["Log_Average"] = np.log1p(pivot_df_reset["Price"])
     
     
-    return summary_df, pivot_df, correlation_matrix, pivot_df_reset
+    return summary_df, pivot_df, correlation_matrix, pivot_df_reset, diversification_benefit
 
 
 
@@ -293,12 +291,12 @@ def run_backtest(start_price=100000, TICKER_LIST=TICKER_LIST):
 
 
 def main():
-    df1, df2, df3, df4 = run_backtest()
+    df1, df2, df3, df4, portfolio_volatility = run_backtest()
     print(df1)
     print(df2)
     print(df3)
     print(df4)
-        
+    print(portfolio_volatility)
     
 
 if __name__ == "__main__":

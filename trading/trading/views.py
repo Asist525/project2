@@ -8,19 +8,11 @@ from django.conf import settings
 @csrf_exempt
 def trigger_backtest(request):
     if request.method == "POST":
-        body = json.loads(request.body)
-        ticker = body.get("ticker")
-        start_date = body.get("start_date")
-        end_date = body.get("end_date")
-
-        # 백테스트 실행 로직 (임시 응답)
-        result = {
-            "ticker": ticker,
-            "start": start_date,
-            "end": end_date,
-            "status": "성공",
-        }
-        return JsonResponse(result)
+        data = json.loads(request.body)
+        ticker = data.get("ticker")
+        start = data.get("start_date")
+        end = data.get("end_date")
+        return JsonResponse({"status": "성공", "ticker": ticker, "start": start, "end": end})
     return JsonResponse({"error": "POST만 허용됨"}, status=405)
 
 def backtest_page(request):

@@ -33,15 +33,24 @@ clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
 
 key_bytes = 32
 
-config_root = '/home/ubuntu/ai/project/trading/config/'
-token_tmp = config_root + 'KIS' + datetime.today().strftime("%Y%m%d")  # 토큰 로컬저장시 파일명 년월일
+# 현재 파일 기준으로 config 디렉토리 설정
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+config_root = os.path.join(BASE_DIR, "config")
 
-# 접근토큰 관리하는 파일 존재여부 체크, 없으면 생성
-if os.path.exists(token_tmp) == False:
-    f = open(token_tmp, "w+")
+# 날짜 기반 토큰 파일 경로
+token_tmp = os.path.join(config_root, f"KIS{datetime.today().strftime('%Y%m%d')}")
 
-# 앱키, 앱시크리트, 토큰, 계좌번호 등 저장관리, 자신만의 경로와 파일명으로 설정하시기 바랍니다.
-with open(config_root + 'kis_devlp.yaml', encoding='UTF-8') as f:
+# 디렉토리 없으면 생성
+os.makedirs(config_root, exist_ok=True)
+
+# 토큰 파일 없으면 생성 (빈 내용)
+if not os.path.exists(token_tmp):
+    with open(token_tmp, "w", encoding="utf-8") as f:
+        pass  # 빈 파일 생성
+
+# 설정 파일 로드 (yaml)
+cfg_path = os.path.join(config_root, "kis_devlp.yaml")
+with open(cfg_path, encoding='utf-8') as f:
     _cfg = yaml.load(f, Loader=yaml.FullLoader)
 
 _TRENV = tuple()

@@ -18,7 +18,7 @@ libclang==18.1.1
 matplotlib==3.10.3
 multitasking==0.0.11
 namex==0.0.9
-numpy==2.2.6
+numpy==1.24.4
 packaging==25.0
 pandas==2.2.3
 pandas_ta==0.3.14b0
@@ -63,3 +63,5 @@ uvicorn==0.29.0
 fastapi
 django-extensions
 whitenoise
+PyYAML==6.0.1
+pycryptodome==3.20.0

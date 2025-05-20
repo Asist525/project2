@@ -53,11 +53,37 @@ services:
       - db
     ports:
       - "9000:9000"
+    env_file:
+      - .env.prod
     volumes:
       - ./trading:/app/trading
       - ./wait-for-it.sh:/app/wait-for-it.sh
+      - ./staticfiles:/app/staticfiles
     networks:
       - backend
+  
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.trading
+    container_name: trading-bot
+    restart: always
+    command: >
+      sh -c "while true; do
+        echo '$(date) - Running trading.py' &&
+        python /app/trading/trading.py &&
+        echo 'Sleeping 5 minutes...' &&
+        sleep 120;
+      done"
+    volumes:
+      - ./trading:/app/trading
+      - /home/ubuntu/project/trading/trading/config:/app/trading/config 
+    environment:
+      - TZ=Asi  a/Seoul
+    networks:
+      - backend
+
+    
 
 volumes:
   postgres_data:

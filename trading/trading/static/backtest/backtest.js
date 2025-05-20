@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const end_date = document.getElementById("end-date").value;
 
     try {
-      const response = await fetch("/run-backtest/", {
+      const response = await fetch("/trading/run-backtest/",  {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
